@@ -1,0 +1,17 @@
+QPushButton
+{
+    border:0px; 
+    image: url(data/UI/images/known.png);
+}
+QPushButton:hover
+{
+    image: url(data/UI/images/known_hover.png);
+}
+QPushButton:pressed
+{
+    image: url(data/UI/images/known_down.png);
+}
+QPushButton:disabled
+{
+    image: url(false.png);
+}

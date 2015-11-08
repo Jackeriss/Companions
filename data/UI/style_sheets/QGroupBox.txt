@@ -1,0 +1,6 @@
+QGroupBox{
+image:url(data/UI/images/bar.png);
+color:white;
+width:360px;
+height:30px;
+}

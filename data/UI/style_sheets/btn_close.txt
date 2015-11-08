@@ -1,0 +1,9 @@
+QPushButton
+{
+    border:0px; 
+    background-image: url(data/UI/images/close.png);
+}
+QPushButton:hover
+{
+    background-image: url(data/UI/images/close_hover.png);
+}

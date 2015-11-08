@@ -1,0 +1,13 @@
+QPushButton
+{
+    border:0px; 
+    background-image: url(data/UI/images/next.png);
+}
+QPushButton:hover
+{
+    background-image: url(data/UI/images/next_hover.png);
+}
+QPushButton:disabled
+{
+    background-image: url(false.png);
+}

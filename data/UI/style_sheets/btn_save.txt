@@ -1,0 +1,17 @@
+QPushButton
+{
+    border:0px; 
+    background-image: url(data/UI/images/save.png);
+}
+QPushButton:hover
+{
+    background-image: url(data/UI/images/save_hover.png);
+}
+QPushButton:pressed
+{
+    background-image: url(data/UI/images/save_down.png);
+}
+QPushButton:disabled
+{
+    background-image: url(data/UI/images/save_disabled.png);
+}

@@ -1,0 +1,15 @@
+QSlider::groove:horizontal {
+     border: 1px solid #222222;
+     height: 2px;
+     margin: 0px 0;
+     left: 12px; right: 12px;
+ }
+QSlider::handle:horizontal {
+     border: 1px solid #222222;
+     border-image:url(data/UI/images/slider.png);
+     width: 12px;
+     margin: -5px -6px -7px -6px;
+ }
+QSlider::sub-page:horizontal{
+     background: qlineargradient(spread:pad, x1:0, y1:1, x2:0, y2:0, stop:0 rgba(0, 29, 75, 255), stop:0.25 rgba(41, 89, 165, 255), stop:0.5 rgba(109, 158, 235, 255), stop:1 rgba(162, 197, 253, 255));
+} 

@@ -1,0 +1,12 @@
+QToolBox::tab {
+font-family:Microsoft YaHei;
+font:18px;
+image:url(data/UI/images/bar.png);
+}
+QToolBoxButton {
+         min-height:45px;
+}
+QToolBox::tab:hover{}
+QToolBox::tab:selected {
+
+}

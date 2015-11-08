@@ -1,0 +1,17 @@
+QPushButton
+{
+    border:0px; 
+    image: url(data/UI/images/bcancel.png);
+}
+QPushButton:hover
+{
+    image: url(data/UI/images/bcancel_hover.png);
+}
+QPushButton:pressed
+{
+    image: url(data/UI/images/bcancel_down.png);
+}
+QPushButton:disabled
+{
+    image: url(false.png);
+}

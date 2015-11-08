@@ -1,0 +1,13 @@
+QPushButton
+{
+    border:0px; 
+    image: url(data/UI/images/update.png);
+}
+QPushButton:hover
+{
+    image: url(data/UI/images/update_hover.png);
+}
+QPushButton:pressed
+{
+    image: url(data/UI/images/update_down.png);
+}

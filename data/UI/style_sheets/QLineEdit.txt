@@ -1,0 +1,8 @@
+QLineEdit{
+color:rgba(150,150,150,100%);
+background:rgba(20,20,20,100%);
+border:0px; 
+border-radius:10px;
+font-family:Microsoft YaHei;
+font:24px
+}

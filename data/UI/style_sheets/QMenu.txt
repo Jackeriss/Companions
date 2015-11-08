@@ -1,0 +1,14 @@
+QMenu
+{									background-color: white;
+width:70px;
+padding: 0px;
+font:15px
+}								QMenu::item
+{
+background-color: transparent;
+}
+QMenu::item:selected
+{
+background-color: rgb(109, 158, 235);
+color: white;
+}
