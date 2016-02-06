@@ -1,6 +1,5 @@
-#!/usr/bin/env python
-#coding:utf-8
-import sys,time,thread,shutil,os,winsound,_winreg
+#coding=utf-8
+import sys,time,thread,shutil,os,winsound
 from shell import shell
 from shell import shellcon
 from PyQt4.QtGui import * 
@@ -10,68 +9,51 @@ from link import *
 class About_UI(QWidget):  
 	def __init__(self,parent=None):
 		super(About_UI,self).__init__(parent)
-		version_file=open("data/Companions_v.txt","r")
-		local_version=version_file.read()
-		version_file.close()
 		about_browser_qss_file=open("data/UI/style_sheets/QTextBrowser.txt","r")
 		about_browser_qss=about_browser_qss_file.read()
 		about_browser_qss_file.close()
 		about_close_qss_file=open("data/UI/style_sheets/btn_close.txt","r")
 		about_close_qss=about_close_qss_file.read()
 		about_close_qss_file.close()
-		about_update_qss_file=open("data/UI/style_sheets/btn_update.txt","r")
-		about_update_qss=about_update_qss_file.read()
-		about_update_qss_file.close()
 		self.btn_close=QPushButton()
-		self.btn_update=QPushButton()
 		self.btn_close.setCursor(QCursor(Qt.PointingHandCursor))
-		self.btn_update.setCursor(QCursor(Qt.PointingHandCursor))
 		self.browser0 = QTextBrowser()
 		self.browser1 = QTextBrowser()
 		self.browser2 = QTextBrowser()
 		self.browser3 = QTextBrowser()
 		self.browser4 = QTextBrowser()
-		self.browser5 = QTextBrowser()
 		self.btn_close.setStyleSheet(about_close_qss)
-		self.btn_update.setStyleSheet(about_update_qss)
 		self.browser0.setStyleSheet(about_browser_qss)
 		self.browser1.setStyleSheet(about_browser_qss)
 		self.browser2.setStyleSheet(about_browser_qss)
 		self.browser3.setStyleSheet(about_browser_qss)
 		self.browser4.setStyleSheet(about_browser_qss)
-		self.browser5.setStyleSheet(about_browser_qss)
 		self.btn_close.setParent(self)
-		self.btn_update.setParent(self)
 		self.browser0.setParent(self)
 		self.browser1.setParent(self)
 		self.browser2.setParent(self)
 		self.browser3.setParent(self)
 		self.browser4.setParent(self)
-		self.browser5.setParent(self)
 		self.btn_close.setGeometry(230,10,9,9)
-		self.btn_update.setGeometry(90,110,70,26)
 		self.browser0.setGeometry(6,2,50,28)
 		self.browser1.setGeometry(0,60,250,28)
-		self.browser2.setGeometry(0,160,250,28)
-		self.browser3.setGeometry(0,210,250,28)
-		self.browser4.setGeometry(0,260,250,28)
-		self.browser5.setGeometry(0,310,250,28)
+		self.browser2.setGeometry(0,110,250,28)
+		self.browser3.setGeometry(0,160,250,28)
+		self.browser4.setGeometry(0,210,250,28)
 		self.btn_close.clicked.connect(self.close_clicked)
-		self.btn_update.clicked.connect(self.update_clicked)
 		self.setWindowTitle(u"关于 - Companions")
 		self.browser2.setOpenExternalLinks(True)
 		self.browser3.setOpenExternalLinks(True)
-		self.browser5.setOpenExternalLinks(True)
+		self.browser4.setOpenExternalLinks(True)
 		self.browser0.append(u'<p style="font-family:Microsoft Yahei;font:15px;color:#4f5359">关于</p>')
-		self.browser1.append(u'<div align=center><p style="font-family:Microsoft Yahei;font:15px">当前版本：%s</p></div>'%local_version[local_version.index("_")+1:local_version.index("_",local_version.index("_")+1)])
-		self.browser2.append(u'<div align=center><p style="font-family:Microsoft Yahei;font:15px"><a style="text-decoration:none;color:#6d9eeb" href="http://www.jackeriss.com/companions.htm">Companions官网</a></p></div>')
-		self.browser3.append(u'<div align=center><p style="font-family:Microsoft Yahei;font:15px">©2015<a style="text-decoration:none;color:#6d9eeb" href="http://www.jackeriss.com"> Jackeriss</a></p></div>')
-		self.browser4.append(u'<div align=center><p style="font-family:Microsoft Yahei;font:15px">独立开发</p></div>')
-		self.browser5.append(u'<div align=center><p style="font-family:Microsoft Yahei;font:15px"><a style="text-decoration:none;color:#6d9eeb" href="http://www.jackeriss.com/donate.htm">捐助我</a></p></div>')
+		self.browser1.append(u'<div align=center><p style="font-family:Microsoft Yahei;font:15px">当前版本：1.0.2')
+		self.browser2.append(u'<div align=center><p style="font-family:Microsoft Yahei;font:15px"><a style="text-decoration:none;color:#6d9eeb" href="http://www.jackeriss.com/companions.htm">官方网站</a></p></div>')
+		self.browser3.append(u'<div align=center><p style="font-family:Microsoft Yahei;font:15px"><a style="text-decoration:none;color:#6d9eeb" href="http://www.jackeriss.com/donate.htm">反馈与支持</a></p></div>')
+		self.browser4.append(u'<div align=center><p style="font-family:Microsoft Yahei;font:15px">©2015<a style="text-decoration:none;color:#6d9eeb" href="http://www.jackeriss.com"> Jackeriss</a></p></div>')
 		self.setAttribute(Qt.WA_TranslucentBackground)
 		self.dragPosition=None
 		self.setWindowFlags(Qt.FramelessWindowHint|Qt.SubWindow)
-		self.resize(250,400)
+		self.resize(250,300)
 		screen = QDesktopWidget().screenGeometry()
 		size = self.geometry()
 		self.move((screen.width()-size.width())/2, (screen.height()-size.height())/2)
@@ -98,264 +80,16 @@ class About_UI(QWidget):
 			event.accept()
 	def mouseMoveEvent(self,event):
 		if event.buttons() & Qt.LeftButton:
-			if self.dragPosition.x()>35 and self.dragPosition.x()<379 and self.dragPosition.y()<55:
-				self.move(event.globalPos()-self.dragPosition)
-				event.accept()
-	def close_clicked(self):
-		self.close()
-	def update_clicked(self):
-		self.update()
-	def update(self):
-		self.update_ui=Update_UI()
-		self.update_ui.show()
-class Update_UI(QWidget):
-	def __init__(self,parent=None):
-		import urllib2
-		super(Update_UI,self).__init__(parent)
-		update_browser_qss_file=open("data/UI/style_sheets/QTextBrowser.txt","r")
-		update_browser_qss=update_browser_qss_file.read()
-		update_browser_qss_file.close()
-		update_close_qss_file=open("data/UI/style_sheets/btn_close.txt","r")
-		update_close_qss=update_close_qss_file.read()
-		update_close_qss_file.close()
-		update_cancel_qss_file=open("data/UI/style_sheets/btn_wcancel.txt","r")
-		update_cancel_qss=update_cancel_qss_file.read()
-		update_cancel_qss_file.close()
-		update_known_qss_file=open("data/UI/style_sheets/btn_known.txt","r")
-		update_known_qss=update_known_qss_file.read()
-		update_known_qss_file.close()
-		update_ok_qss_file=open("data/UI/style_sheets/btn_ok.txt","r")
-		update_ok_qss=update_ok_qss_file.read()
-		update_ok_qss_file.close()
-		self.btn_close=QPushButton()
-		self.btn_cancel1=QPushButton()
-		self.btn_known=QPushButton()
-		self.btn_ok=QPushButton()
-		self.btn_cancel2=QPushButton()
-		self.btn_close.setCursor(QCursor(Qt.PointingHandCursor))
-		self.btn_cancel1.setCursor(QCursor(Qt.PointingHandCursor))
-		self.btn_known.setCursor(QCursor(Qt.PointingHandCursor))
-		self.btn_ok.setCursor(QCursor(Qt.PointingHandCursor))
-		self.btn_cancel2.setCursor(QCursor(Qt.PointingHandCursor))
-		self.browser0 = QTextBrowser()
-		self.browser1 = QTextBrowser()
-		self.btn_close.setStyleSheet(update_close_qss)
-		self.btn_cancel1.setStyleSheet(update_cancel_qss)
-		self.btn_known.setStyleSheet(update_known_qss)
-		self.btn_ok.setStyleSheet(update_ok_qss)
-		self.btn_cancel2.setStyleSheet(update_cancel_qss)
-		self.browser0.setStyleSheet(update_browser_qss)
-		self.browser1.setStyleSheet(update_browser_qss)
-		self.btn_close.setParent(self)
-		self.btn_known.setParent(self)
-		self.btn_cancel1.setParent(self)
-		self.btn_ok.setParent(self)
-		self.btn_cancel2.setParent(self)
-		self.browser0.setParent(self)
-		self.browser1.setParent(self)
-		self.btn_close.setGeometry(380,10,9,9)
-		self.btn_cancel1.setGeometry(160,180,80,30)
-		self.btn_known.setGeometry(160,180,80,30)
-		self.btn_ok.setGeometry(100,180,80,30)
-		self.btn_cancel2.setGeometry(220,180,80,30)
-		self.browser0.setGeometry(6,2,50,28)
-		self.browser1.setGeometry(60,90,300,35)
-		self.btn_close.clicked.connect(self.close_clicked)
-		self.btn_cancel1.clicked.connect(self.close_clicked)
-		self.btn_known.clicked.connect(self.close_clicked)
-		self.btn_ok.clicked.connect(self.ok_clicked)
-		self.btn_cancel2.clicked.connect(self.close_clicked)
-		self.setWindowTitle(u"更新 - Companions")
-		self.browser0.append(u'<p style="font-family:Microsoft Yahei;font:15px">更新</p>')
-		self.browser1.append(u'<div align=center><p style="font-family:Microsoft Yahei;font:18px;color:#4f5359">正在检查更新...</p></div>')
-		self.setAttribute(Qt.WA_TranslucentBackground)
-		self.dragPosition=None
-		self.setWindowFlags(Qt.FramelessWindowHint|Qt.SubWindow)
-		self.resize(400,250)
-		screen = QDesktopWidget().screenGeometry()
-		size = self.geometry()
-		self.move((screen.width()-size.width())/2, (screen.height()-size.height())/2)
-		self.btn_known.setEnabled(False)
-		self.btn_ok.setEnabled(False)
-		self.btn_cancel2.setEnabled(False)
-		self.check_update()
-	def paintEvent(self,event):
-		path=QPainterPath()
-		painter=QPainter(self)
-		painter.setRenderHint(QPainter.Antialiasing, True)
-		color=QColor(0, 0, 0, 255)
-		alpha=[120,75,45,25,15,10]
-		path.addRoundRect(6, 6, self.width()-12, self.height()-12, 2)
-		painter.fillPath(path, QBrush(QPixmap("data/UI/images/update_bg.png")))
-		for i in range(0,6):
-			path=QPainterPath()
-			path.addRoundRect(6-i, 6-i, self.width()-(6-i)*2, self.height()-(6-i)*2, 2)
-			color.setAlpha(alpha[i])
-			painter.setPen(color)
-			painter.drawPath(path)
-	def mousePressEvent(self,event):
-		if event.button()==Qt.LeftButton:
-			self.dragPosition=event.globalPos()-self.frameGeometry().topLeft()
-			event.accept()
+			if self.dragPosition != None:
+				if self.dragPosition.y()<55:
+					self.move(event.globalPos()-self.dragPosition)
+					event.accept()
 	def mouseReleaseEvent(self,event):
-		if event.button()==Qt.LeftButton:
-			event.accept()
-	def mouseMoveEvent(self,event):
-		if event.buttons() & Qt.LeftButton:
-			if self.dragPosition.x()>35 and self.dragPosition.x()<379 and self.dragPosition.y()<55:
-				self.move(event.globalPos()-self.dragPosition)
-				event.accept()
-	def check_update(self):
-		global latest_version
-		version_file=open("data/Companions_v.txt","r")
-		local_version=version_file.read()
-		version_file.close()
-		url="http://www.jackeriss.com/Companions_v.txt"
-		try:
-			page=urllib2.urlopen(url)
-		except:
-			page=None
-		if page:
-			latest_version=page.read()
-			if local_version==latest_version:
-				self.browser1.clear()
-				self.browser1.append(u'<div align=center><p style="font-family:Microsoft Yahei;font:18px;color:#4f5359">已经是最新版了！</p></div>')
-				self.btn_cancel1.setEnabled(False)
-				self.btn_cancel1.hide()
-				self.btn_known.setEnabled(True)
-			else:
-				self.browser1.clear()
-				self.browser1.append(u'<div align=center><p style="font-family:Microsoft Yahei;font:15px;color:#4f5359">发现新版本(%s), 现在开始更新？</p></div>'%latest_version[latest_version.index("_")+1:latest_version.index("_",latest_version.index("_")+1)])
-				self.btn_cancel1.setEnabled(False)
-				self.btn_cancel1.hide()
-				self.btn_ok.setEnabled(True)
-				self.btn_cancel2.setEnabled(True)
-		else:
-			self.browser1.clear()
-			self.browser1.append(u'<div align=center><p style="font-family:Microsoft Yahei;font:18px;color:#4f5359">已经是最新版了！</p></div>')
-			self.btn_cancel1.setEnabled(False)
-			self.btn_cancel1.hide()
-			self.btn_known.setEnabled(True)
+		self.dragPosition=QPoint(0,100)
+		event.accept()
 	def close_clicked(self):
-		self.close()
-	def ok_clicked(self):
-		self.update()
-	def update(self):
-		self.updating_ui=Updating_UI()
-		self.updating_ui.show()
 		self.close()
 
-class download_update(QThread):
-	trigger = pyqtSignal()
-	def __init__(self,parent=None):
-		super(download_update,self).__init__(parent)
-	def run(self):
-		def report_hook(count, block_size, total_size):
-			global percentage,latest_version
-			percentage=int(100.0 * count * block_size/ total_size)
-			self.trigger.emit()
-		update_url_file=open("data/settings/update_url.txt","r")
-		update_url=update_url_file.read()
-		update_url_file.close()
-		urllib.urlretrieve(update_url+latest_version, "cache/"+latest_version, reporthook= report_hook)
-		os.startfile('cache\\'+latest_version)
-class change_label(QThread):
-	trigger = pyqtSignal()
-	def __init__(self,parent=None):
-		super(change_label,self).__init__(parent)
-	def run(self):
-		global i,themes_list
-		i=0
-		while 1:
-			time.sleep(5)
-			i+=1
-			if i>=len(themes_list):
-				i=0
-			self.trigger.emit()
-		
-class Updating_UI(QWidget):  
-	def __init__(self,parent=None):
-		global ui_path,themes_list
-		super(Updating_UI,self).__init__(parent)
-		updating_browser_qss_file=open("data/UI/style_sheets/QTextBrowser.txt","r")
-		updating_browser_qss=updating_browser_qss_file.read()
-		updating_browser_qss_file.close()
-		updating_progress_qss_file=open("data/UI/style_sheets/QProgressBar.txt","r")
-		updating_progress_qss=updating_progress_qss_file.read()
-		updating_progress_qss_file.close()
-		themes_list=[]
-		themes_list1=os.listdir('data/themes')
-		for i in range(len(themes_list1)-1,-1,-1):
-			themes_list.append(themes_list1[i].decode('gbk'))
-		self.download_thread=download_update()
-		self.label_thread=change_label()
-		self.progress_bar=QProgressBar()
-		self.progress_bar.setMaximum(100)
-		self.progress_bar.setMinimum(0)
-		self.progress_bar.setValue(0)
-		self.btn_close=QPushButton()
-		self.btn_cancel=QPushButton()
-		self.btn_close.setCursor(QCursor(Qt.PointingHandCursor))
-		self.btn_cancel.setCursor(QCursor(Qt.PointingHandCursor))
-		self.browser0 = QTextBrowser()
-		self.label=QLabel()
-		self.progress_bar.setStyleSheet(updating_progress_qss)
-		self.browser0.setStyleSheet(updating_browser_qss)
-		self.progress_bar.setParent(self)
-		self.browser0.setParent(self)
-		self.label.setParent(self)
-		self.progress_bar.setGeometry(35,180,430,8)
-		self.browser0.setGeometry(165,190,300,35)
-		self.label.setGeometry(186,26,128,128)
-		self.progress_bar.setTextVisible(False)
-		self.setWindowTitle(u"正在下载更新...")
-		self.browser0.append(u'<p style="font-family:Microsoft Yahei;font:15px">正在下载，已完成：%d%%</p>'%self.progress_bar.value())
-		self.label.setPixmap(QPixmap("data/themes/"+themes_list[0]+"/images/UI/cover.png"))
-		self.setAttribute(Qt.WA_TranslucentBackground)
-		self.dragPosition=None
-		self.setWindowFlags(Qt.FramelessWindowHint|Qt.SubWindow)
-		self.resize(500,250)
-		screen = QDesktopWidget().screenGeometry()
-		size = self.geometry()
-		self.move((screen.width()-size.width())/2, (screen.height()-size.height())/2)
-		self.download_thread.trigger.connect(self.update_progress)
-		self.label_thread.trigger.connect(self.label_change)
-		self.download_thread.start()
-		self.label_thread.start()
-	def paintEvent(self,event):
-		path=QPainterPath()
-		painter=QPainter(self)
-		painter.setRenderHint(QPainter.Antialiasing, True)
-		color=QColor(0, 0, 0, 255)
-		alpha=[120,75,45,25,15,10]
-		path.addRoundRect(6, 6, self.width()-12, self.height()-12, 2)
-		painter.fillPath(path, QBrush(QPixmap("data/UI/images/background.png")))
-		for i in range(0,6):
-			path=QPainterPath()
-			path.addRoundRect(6-i, 6-i, self.width()-(6-i)*2, self.height()-(6-i)*2, 2)
-			color.setAlpha(alpha[i])
-			painter.setPen(color)
-			painter.drawPath(path)
-	def update_progress(self):
-		global percentage
-		self.progress_bar.setValue(percentage)
-		self.browser0.clear()
-		self.browser0.append(u'<p>正在下载，已完成：%d%%</p>'%self.progress_bar.value())
-	def label_change(self):
-		global i,themes_list
-		self.label.setPixmap(QPixmap("data/themes/"+themes_list[i]+"/images/UI/cover.png"))
-	def mousePressEvent(self,event):
-		if event.button()==Qt.LeftButton:
-			self.dragPosition=event.globalPos()-self.frameGeometry().topLeft()
-			event.accept()
-	def mouseReleaseEvent(self,event):
-		if event.button()==Qt.LeftButton:
-			event.accept()
-	def mouseMoveEvent(self,event):
-		if event.buttons() & Qt.LeftButton:
-			if self.dragPosition.x()>35 and self.dragPosition.x()<379 and self.dragPosition.y()<55:
-				self.move(event.globalPos()-self.dragPosition)
-				event.accept()
 class Help_UI(QWidget):  
 	def __init__(self,parent=None):
 		super(Help_UI,self).__init__(parent)
@@ -506,9 +240,13 @@ class Help_UI(QWidget):
 			event.accept()
 	def mouseMoveEvent(self,event):
 		if event.buttons() & Qt.LeftButton:
-			if self.dragPosition.x()>35 and self.dragPosition.x()<379 and self.dragPosition.y()<55:
-				self.move(event.globalPos()-self.dragPosition)
-				event.accept()
+			if self.dragPosition != None:
+				if self.dragPosition.y()<55:
+					self.move(event.globalPos()-self.dragPosition)
+					event.accept()
+	def mouseReleaseEvent(self,event):
+		self.dragPosition=QPoint(0,100)
+		event.accept()
 	def close_clicked(self):
 		self.close()
 class Setting_UI(QWidget):
@@ -723,9 +461,13 @@ class Setting_UI(QWidget):
 			event.accept()
 	def mouseMoveEvent(self,event):
 		if event.buttons() & Qt.LeftButton:
-			if self.dragPosition.x()>35 and self.dragPosition.x()<379 and self.dragPosition.y()<50:
-				self.move(event.globalPos()-self.dragPosition)  
-				event.accept()
+			if self.dragPosition != None:
+				if self.dragPosition.y()<50:
+					self.move(event.globalPos()-self.dragPosition)
+					event.accept()
+	def mouseReleaseEvent(self,event):
+		self.dragPosition=QPoint(0,100)
+		event.accept()
 	def close_clicked(self):
 		global transparency,auto_start,current_theme,setted_theme
 		self.check.setChecked(auto_start)
@@ -1005,7 +747,7 @@ class Companions_UI(QWidget):
 		self.trayIcon.show()
 		self.setAttribute(Qt.WA_TranslucentBackground)
 		self.dragPosition=None   
-		self.setWindowFlags(Qt.FramelessWindowHint|Qt.WindowStaysOnTopHint|Qt.SubWindow) 
+		self.setWindowFlags(Qt.FramelessWindowHint|Qt.WindowStaysOnTopHint|Qt.SplashScreen|Qt.X11BypassWindowManagerHint) 
 		self.setWindowOpacity(transparency/400.0)  
 		self.resize(60,60)
 		screen = QDesktopWidget().screenGeometry()
@@ -1135,7 +877,6 @@ class Companions_UI(QWidget):
 			self.lineedit.show()
 			self.lineedit.setFocus()
 			self.resize(400,60)
-
 	def updateUi_2(self):
 		global shape1,shape2,shape3,text,count,style_path
 		if shape1:
@@ -1233,8 +974,7 @@ class Companions_UI(QWidget):
 			self.play_thread.start()
 		self.browser.append(results)
 		self.browser.moveCursor(QTextCursor.End)
-		
-
+			
 app=QApplication(sys.argv)
 form=Companions_UI()
 form.show()

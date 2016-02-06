@@ -2,6 +2,7 @@ QLineEdit{
 border:0px;
 border-radius:10px;
 background:rgba(20,20,20,100%);
+selection-background-color:#787878;
 color:rgba(150,150,150,100%);
 font-family:Microsoft YaHei;
 font:24px
