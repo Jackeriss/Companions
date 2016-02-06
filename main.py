@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 #-*- encoding: gbk -*-
-import os,random,webbrowser,string,time,re,sched,thread
+import os,random,webbrowser,string,time,re,sched,thread,subprocess
 from shell import shell
 from shell import shellcon
 from calc import *
@@ -448,8 +448,6 @@ def main(info):
         web='http://www.0xaa55.com'
     elif b.lower()=='jackeriss'or b.lower()=='jc'or b.lower()=='jack criss':
         web='http://www.jackeriss.com'
-    elif b=='斑步自行车社区'or b=='斑步自行车'or b=='斑步竹子自行车'or b=='斑步'or b.lower()=='bamboo bike':
-        web='http://www.gn00.com'
     elif b=='慕课'or b=='慕课网':
         web='http://www.imooc.com'
     elif b=='智联招聘':
@@ -565,8 +563,8 @@ def main(info):
         if chat_info=='':
             over=True
             break
-        questions=chat_info[:chat_info.index(':')].split(';')
-        answers=chat_info[chat_info.index(':')+1:].split(';')
+        questions=chat_info[:chat_info.index('@')].split('#')
+        answers=chat_info[chat_info.index('@')+1:].split('#')
         for i in range(0,len(questions)):
             if info == questions[i]:                
                 answer=random.choice(answers)
@@ -774,6 +772,28 @@ def main(info):
 ###########################################################################################
 #wiki
 ###########################################################################################
+    if not feedback:
+        style_path_file=open("data/settings/style_path.txt","r")
+        style_path=style_path_file.read().strip("style_sheets/")
+        style_path_file.close()
+        chat_file=open(style_path+"\\chat.txt","r")
+        over=False
+        answer=False
+        Type=0
+        while not over:
+            chat_info=chat_file.readline().strip('\n')
+            if chat_info=='':
+                over=True
+                break
+            questions=chat_info[:chat_info.index('@')].split('#')
+            answers=chat_info[chat_info.index('@')+1:].split('#')
+            for i in range(0,len(questions)):
+                if info == questions[i]:                
+                    answer=random.choice(answers)
+                    over=True
+        chat_file.close()
+        if answer:
+            feedback = answer
     if info=="你好" or info=="嗨" or info=="哈喽" or info=="你好啊" or info=="您好":
         if "(" in current_theme and ")" in current_theme:
             feedback="你好，我叫大白，是你的私人健康助手"
@@ -904,9 +924,10 @@ def main(info):
     if special_format:
         feedback = '<p style="font-family:Microsoft Yahei;font:24px">'+current_theme+'：</p>'+feedback
     else:
-        if current_theme=="御坂10032号":
-            adv=["一本正经地","一本正经地","一本正经地","认真地","强忍着笑声","耐心地","无奈地","淡定地","淡定地"]
-            feedback = '<p style="font-family:Microsoft Yahei;font:24px">'+current_theme+'：'+feedback+'，do，御坂'+random.choice(adv)+'说道</p>'
-        else:
-            feedback = '<p style="font-family:Microsoft Yahei;font:24px">'+current_theme+'：'+feedback+'</p>'
+        style_path_file=open("data/settings/style_path.txt","r")
+        style_path=style_path_file.read().strip("style_sheets/")
+        style_path_file.close()
+        tag_file=open(style_path+"\\tag.txt","r")
+        tag=tag_file.read().split("\n")
+        feedback = '<p style="font-family:Microsoft Yahei;font:24px">'+current_theme+'：'+feedback+random.choice(tag)+'</p>'
     return feedback
