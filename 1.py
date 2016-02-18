@@ -11,4 +11,4 @@ options = {"py2exe":
      "bundle_files": 1
      }
     }
-setup(options=options,zipfile=None,windows=[{"script": "UI.py","icon_resources": [(1, "Icon.ico")]}])  
+setup(options=options,zipfile=None,windows=[{"script": "Companions.py","icon_resources": [(1, "Icon.ico")]}])  
