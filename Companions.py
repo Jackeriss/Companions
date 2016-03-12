@@ -1,5 +1,5 @@
 #coding=utf-8
-import sys,time,thread,shutil,os,winsound
+import sys,time,shutil,os,winsound
 from shell import shell
 from shell import shellcon
 from PyQt4.QtGui import * 
