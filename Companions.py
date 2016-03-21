@@ -659,6 +659,9 @@ class Companions_UI(QWidget):
 		super(Companions_UI,self).__init__(parent)
 		global shape1,shape2,shape3,ui_path,style_path,setted_theme,current_theme,transparency,trans
 		trans=None
+		self.setting_ui = None
+		self.help_ui = None
+		self.about_ui = None
 		while 1:
 			try:
 				good_time_file=open("data/db/good_time.txt","w")
@@ -811,6 +814,12 @@ class Companions_UI(QWidget):
 				except:
 					pass		
 		os.popen("TASKKILL /F /IM reminder.exe")
+		if self.setting_ui != None:
+			self.setting_ui.close()
+		if self.help_ui != None:
+			self.help_ui.close()
+		if self.about_ui != None:
+			self.about_ui.close()
 		self.trayIcon.hide()
 		sys.exit()
 	def update_transparency(self):
