@@ -6,7 +6,6 @@ from shell import shellcon
 from calc import *
 from the_time import *
 from weather import *
-from movie import *
 from zhidao import *
 from wiki import *
 from _is_ import _is_
@@ -874,13 +873,6 @@ def main(info):
             feedback="我是白胖子，不是蓝胖子！上一个我就被困在“任意门”中了，你忘了吗？"
     if not feedback:
         try:
-            feedback = movie(info)
-        except:
-            pass
-        if feedback:
-            special_format=True
-    if not feedback:
-        try:
             feedback = zhidao(info)
         except:
             pass
@@ -908,6 +900,11 @@ def main(info):
                 pass
             if feedback:
                 special_format=True
+    if not feedback:
+        ss=origin_info.replace(" ","")
+        if re.match(r"^((([hH][tT][tT][pP][sS]?|[fF][tT][pP])\:\/\/)?([\w\.\-]+(\:[\w\.\&%\$\-]+)*@)?((([^\s\(\)\<\>\\\"\.\[\]\,@;:]+)(\.[^\s\(\)\<\>\\\"\.\[\]\,@;:]+)*(\.[a-zA-Z]{2,4}))|((([01]?\d{1,2}|2[0-4]\d|25[0-5])\.){3}([01]?\d{1,2}|2[0-4]\d|25[0-5])))(\b\:(6553[0-5]|655[0-2]\d|65[0-4]\d{2}|6[0-4]\d{3}|[1-5]\d{4}|[1-9]\d{0,3}|0)\b)?((\/[^\/][\w\.\,\?\'\\\/\+&%\$#\=~_\-@]*)*[^\.\,\?\"\'\(\)\[\]!;<>{}\s\x7F-\xFF])?)$",ss):
+            webbrowser.open_new_tab(ss)
+            feedback='正在为您打开%s'%ss
     if not feedback or feedback=='<p style="font-family:Microsoft Yahei;font:24px">请检查您的网络连接</p>'or feedback=='请检查您的网络连接':
         temp = None
         temp = blur(info,q)
