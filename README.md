@@ -1,4 +1,5 @@
 # Companions
+[![EOL](https://img.shields.io/badge/Status-EOL-lightgrey.svg?style=flat-square)]()  
 A personal assistant for PC
 ## Environment
 
